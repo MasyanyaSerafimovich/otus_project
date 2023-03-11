@@ -2,7 +2,7 @@ import config from "../../config";
 import user from "../helper/user";
 
 describe('В разделе Authorization and authentication', () => {
-    describe('Метод POST /api/v1/login', () => {
+    describe('В разделе Authorization and authentication метод POST /api/v1/login', () => {
 
         test('получает токен при введении правильных логина и пароля', async () => {
             const res = await user.login(config.credentials_valid);
