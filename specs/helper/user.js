@@ -14,27 +14,6 @@ const user = {
             .send(payload)
     },
 
-    async getAuthToken() {
-        const payload = config.credentials
-        const res = await this.login(payload)
-        return res.body.token
-    },
-
-    async getAuthTokenWithCache(){
-        if(token){
-            return token;
-        }
-        token = await this.getAuthToken()
-        return token
-    },
-
-    user: (token) => {
-        return supertest(url)
-            .get('api/v1/user')
-            .set('Accept', 'application/json')
-            .set('Authorization', `Bearer ${token}`)
-            .send
-    }
 }
 
 
