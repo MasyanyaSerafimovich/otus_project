@@ -2,7 +2,6 @@ import supertest from "supertest";
 import config from "../../config";
 
 const url = config.url;
-let token = '';
 
 //контроллер user
 const user = {
