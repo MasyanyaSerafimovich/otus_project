@@ -3,5 +3,13 @@ export default {
     "transform": {
         "^.+\\.[t|j]sx?$": "babel-jest"
     },
-    //timeout: 20000
+    reporters: [
+        "default", 
+        [
+          "jest-html-reporters", {
+            "publicPath": "./jest-html-report",
+            "filename": "report.html"
+          }
+        ]
+    ]
 }
