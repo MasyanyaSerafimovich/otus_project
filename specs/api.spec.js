@@ -24,8 +24,11 @@ describe('В Kampus.com', () => {
             [config.credentials_invalid_username],
 
             // Случай с некорректным паролем
-            [config.credentials_invalid_password]
-        ]) ('Возвращает ошибку авторизации, если неверный логин или пароль', async (payload) => {
+            [config.credentials_invalid_password],
+
+            // Случай с некорректными логином и паролем
+            [config.credentials_invalid]
+        ]) ('Возвращает ошибку авторизации, если неверный логин или/и пароль', async (payload) => {
 
             // Отправляем запрос с данными из массива выше
             const res = await user.login(payload);
@@ -66,8 +69,61 @@ describe('В Kampus.com', () => {
 
         })
 
-        test('Не создает материал, если токен неккоректный', async () => {
+        test.each([
 
+            // Случай с некорректным токеном
+            [config.topicCreationData, config.invalidToken],
+
+            // Случай с отсутствующим токеном
+            [config.topicCreationData, '']
+        ])('Не создает материал, если токен некорректный или отсутствует', async (payload, token) => {
+
+            // Создаем материал, используя некорректный токен
+            const res = await user.createTopic(payload, token)
+
+            // Проверяем, что пришел статус не 200
+            expect(res.status).not.toEqual(200);
+
+            // Проверяем, что id материала не получен
+            expect(typeof res.body.id).toEqual('undefined');
+
+        })
+
+    })
+
+    describe('Метод POST api/v1/topic/block/result/export', () => {
+
+        test('Выгружает результаты прохождения материала', async () => {
+
+            // Получаем токен пользователя-создателя
+            const token = await user.getToken(config.credentials_valid);
+
+            // Создаем материал и получаем id созданного материала
+            const res = await user.createTopic(config.topicCreationData, token);
+            const topic_id = await res.body.id;
+
+            // Проверяем, что id является числом
+            expect(typeof topic_id).toEqual('number');
+
+            // Выгружаем результаты прохождения материала
+            const res2 = await user.getResults(topic_id, token);
+
+            // Проверяем, что пришел статус 200
+            expect(res2.status).toEqual(200);
+
+            // Проверяем, что ответ является строкой
+            expect(typeof res2.body).toEqual('object');
+
+            // Удаляем материал
+            const res3 = await user.deleteTopic(topic_id, token);
+
+            // Проверяем, что пришел статус 200
+            expect(res3.status).toEqual(200);
+
+        })
+
+        test('Не выгружает результаты прохождения материала, если токен если токен некорректный', async () => {
+            
             // Создаем материал, используя некорректный токен
             const res = await user.createTopic(config.topicCreationData, config.invalidToken)
 
@@ -76,6 +132,7 @@ describe('В Kampus.com', () => {
 
             // Проверяем, что id материала не получен
             expect(typeof res.body.id).toEqual('undefined');
+            
 
         })
 

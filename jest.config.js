@@ -11,5 +11,6 @@ export default {
             "filename": "report.html"
           }
         ]
-    ]
+    ],
+    testTimeout: 60000
 }

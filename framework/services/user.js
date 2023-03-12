@@ -36,9 +36,15 @@ const user = {
         return supertest(url)
             .delete(`/api/v1/topic/${id}`)
             .set('Authorization', token)
+    },
+
+    // Запрос на выгрузку результатов изучения материала по id
+    getResults: (id, token) => {
+        return supertest(url)
+            .get(`/api/v1/topic/block/result/export?topicId=${id}`)
+            .set('Authorization', token)
     }
 
 }
-
 
 export default user

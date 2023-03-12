@@ -14,6 +14,10 @@ const config = {
         "username":process.env.valid_username,
         "password":process.env.invalid_password
     },
+    credentials_invalid: {
+        "username":process.env.invalid_username,
+        "password":process.env.invalid_password
+    },
     topicCreationData: {
         "tagNames":[],
         "skillNames":[],
@@ -40,7 +44,10 @@ const config = {
         "webinarCreateEventRequest":[],
         "authorNames":[]
     },
-    invalidToken: "1234567890"
+    invalidToken: "1234567890",
+    commentCreationData: {
+
+    }
 }
 
 export default config
