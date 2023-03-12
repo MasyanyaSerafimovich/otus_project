@@ -26,4 +26,15 @@ describe('В разделе Authorization and authentication (Наш e2e тес�
 
     })
 
+    describe('Новый тест', () => {
+
+        test('новый тест', async () => {
+            const res = await user.login(config.credentials_invalid_password);
+
+            expect(res.status).toEqual(403);
+            expect(res.body.message).toEqual("Неверный логин или пароль")
+        })
+
+    })
+
 })
