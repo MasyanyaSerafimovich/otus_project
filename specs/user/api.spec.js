@@ -6,7 +6,6 @@ describe('В разделе Authorization and authentication (Наш e2e тес�
 
         test('получает токен при введении правильных логина и пароля', async () => {
             const res = await user.login(config.credentials_valid);
-
             expect(res.status).toEqual(200);
             expect(typeof res.body.accessToken).toEqual('string')
         })

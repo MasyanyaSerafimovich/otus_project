@@ -1,16 +1,18 @@
+require('dotenv').config();
+
 const config = {
     url:'https://k-ampus.dev',
-    credentials_valid:{
-        username:'s.bazhenova@tandp.ru',
-        password:'s.bazhenova@tandp.ru'
+    credentials_valid: {
+        "username":process.env.valid_username,
+        "password":process.env.valid_password
     },
-    credentials_invalid_username:{
-        username:'ssss.bazhenova@tandp.ru',
-        password:'s.bazhenova@tandp.ru'
+    credentials_invalid_username: {
+        "username":process.env.invalid_username,
+        "password":process.env.valid_password
     },
-    credentials_invalid_password:{
-        username:'s.bazhenova@tandp.ru',
-        password:'ssss.bazhenova@tandp.ru'
+    credentials_invalid_password: {
+        "username":process.env.valid_username,
+        "password":process.env.invalid_password
     }
 }
 
